@@ -6,7 +6,7 @@ def say_hello():
     messagebox.showinfo("Hello", "Hello World")
 
 root = tk.Tk()
-root.geometry("300x200")
+root.geometry("1024x940")
 root.title("Hello World")
 
 label = ttk.Label(root, text="Hello World")
