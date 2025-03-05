@@ -42,4 +42,7 @@ btn_pazl.pack(pady=20, padx=10)
 
 btn_log = tk.Button(frame_buttons, text="Логика", font=("Arial", 14, "bold"), padx=20, pady=5, bd=2, width=20)
 btn_log.pack(pady=20, padx=10)
+
+btn_log = tk.Button(frame_buttons, text="Логика", font=("Arial", 14, "bold"), padx=20, pady=5, bd=2, width=20)
+btn_log.pack(pady=20, padx=10)
 root.mainloop()
