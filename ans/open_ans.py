@@ -1,93 +1,96 @@
-from tkinter import ttk
-from tkinter import *
 import tkinter as tk
+from tkinter import messagebox
 import subprocess
 
-def open_open_file():
+# Основные цвета
+BG_COLOR = "#F6D35B"
+TEXT_COLOR = "#2c3e50"
+CORRECT_COLOR = "#2ecc71"
+WRONG_COLOR = "#e74c3c"
+BUTTON_COLOR = "#f1c40f"
+BUTTON_TEXT = "#000"
+
+# Функция для возврата в меню
+def open_main_menu():
     root.destroy()
     subprocess.run(["python", "main.py"])
 
-def on_mouse_wheel(event):
-    canvas.yview_scroll(-1 * (event.delta // 120), "units")
+# Список вопросов и ответов
+questions = [
+    ("Какой из следующих алгоритмов является алгоритмом обучения с учителем?", ["K-Means", "Линейная регрессия", "DBSCAN", "PCA"], 1),
+    ("Какой алгоритм чаще всего используется для классификации?", ["Логистическая регрессия", "K-Means", "Градиентный спуск", "PCA"], 0),
+    ("Какой из методов используется для уменьшения размерности данных?", ["KNN", "SVM", "PCA", "Random Forest"], 2),
+    ("Какой алгоритм относится к методам кластеризации?", ["Decision Tree", "K-Means", "Линейная регрессия", "Градиентный бустинг"], 1),
+    ("Какой метод используется для оптимизации нейронных сетей?", ["Градиентный спуск", "K-Means", "Логистическая регрессия", "DBSCAN"], 0)
+]
 
-def create_question(root, question, answers, row_start):
-    """Функция для создания вопроса с вариантами ответа."""
-    label = tk.Label(root, text=question, font=("Arial", 12, "bold"))
-    label.grid(row=row_start, column=0, columnspan=2, sticky="w", padx=10, pady=5)
+current_question = 0
+score = 0
+selected = False
 
-    selected_option = tk.IntVar(value=-1)
-    checkbuttons = []
-
-    for i, answer in enumerate(answers):
-        chk_btn = tk.Checkbutton(root, text=answer, variable=selected_option, onvalue=i, offvalue=-1, anchor='w')
-        chk_btn.grid(row=row_start + i + 1, column=0, columnspan=2, sticky="w", padx=30)
-        checkbuttons.append(chk_btn)
-
-    return selected_option, checkbuttons
-
-def check_answers():
-    correct_answers = [1, 0, 2, 1, 0]  # Индексы правильных ответов
-    score = 0
-    for i, (selected, checkbuttons) in enumerate(zip(selected_answers, checkbuttons_list)):
-        if selected.get() == correct_answers[i]:
-            score += 2
-        
-        # Деактивируем чекбоксы после ответа
-        for btn in checkbuttons:
-            btn.config(state=DISABLED)
-    
-    result_label.config(text=f"Ваш результат: {score} баллов")
-
+# Создание окна
 root = tk.Tk()
 root.geometry("1024x600")
 root.title("Тест по алгоритмам")
+root.configure(bg=BG_COLOR)
 
-canvas = tk.Canvas(root)
-scrollbar = tk.Scrollbar(root, orient="vertical", command=canvas.yview)
-scrollable_frame = tk.Frame(canvas)
+# Функция отображения вопроса
+def show_question():
+    global selected
+    selected = False
+    question_label.config(text=questions[current_question][0])
+    
+    for i, btn in enumerate(answer_buttons):
+        btn.config(text=questions[current_question][1][i], bg=BUTTON_COLOR, state="normal")
+    
+    next_button.config(state="disabled")
 
-scrollable_frame.bind(
-    "<Configure>",
-    lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
-)
+    if current_question == len(questions) - 1:
+        next_button.config(text="Вернуться в меню")
 
-canvas.create_window((0, 0), window=scrollable_frame, anchor="n", width=1024)
-canvas.configure(yscrollcommand=scrollbar.set)
-canvas.pack(side="left", fill="both", expand=True)
-scrollbar.pack(side="right", fill="y")
+# Функция выбора ответа
+def choose_answer(index):
+    global selected, score
+    if selected:
+        return
+    selected = True
+    correct_index = questions[current_question][2]
+    
+    for i, btn in enumerate(answer_buttons):
+        if i == correct_index:
+            btn.config(bg=CORRECT_COLOR)
+        elif i == index:
+            btn.config(bg=WRONG_COLOR)
+        btn.config(state="disabled")
+    
+    if index == correct_index:
+        score += 2
+    
+    next_button.config(state="normal")
 
-frame = tk.Frame(scrollable_frame)
-frame.pack(anchor="n", pady=10)
+# Функция перехода к следующему вопросу
+def next_question():
+    global current_question
+    if current_question < len(questions) - 1:
+        current_question += 1
+        show_question()
+    else:
+        messagebox.showinfo("Результат", f"Ваш результат: {score} баллов")
+        open_main_menu()
 
-questions = [
-    ("Какой из следующих алгоритмов является алгоритмом обучения с учителем?", ["K-Means", "Линейная регрессия", "DBSCAN", "PCA", "Генетический алгоритм"]),
-    ("Какой алгоритм чаще всего используется для классификации?", ["Логистическая регрессия", "K-Means", "Градиентный спуск", "PCA", "A*"]),
-    ("Какой из методов используется для уменьшения размерности данных?", ["KNN", "SVM", "PCA", "Random Forest", "Градиентный бустинг"]),
-    ("Какой алгоритм относится к методам кластеризации?", ["Decision Tree", "K-Means", "Линейная регрессия", "Градиентный бустинг", "Байесовский классификатор"]),
-    ("Какой метод используется для оптимизации нейронных сетей?", ["Градиентный спуск", "K-Means", "Логистическая регрессия", "DBSCAN", "Гистограмма"])
-]
+question_label = tk.Label(root, text="", font=("Arial", 18, "bold"), bg=BG_COLOR, fg=TEXT_COLOR, wraplength=900)
+question_label.pack(pady=20)
 
-selected_answers = []
-checkbuttons_list = []
-row = 0
-for question, answers in questions:
-    selected_option, checkbuttons = create_question(frame, question, answers, row)
-    selected_answers.append(selected_option)
-    checkbuttons_list.append(checkbuttons)
-    row += len(answers) + 2
+answer_buttons = []
+for i in range(4):
+    btn = tk.Button(root, text="", font=("Arial", 16), width=40, height=2, bg=BUTTON_COLOR, fg=BUTTON_TEXT,
+                    command=lambda i=i: choose_answer(i))
+    btn.pack(pady=5)
+    answer_buttons.append(btn)
 
-buttons_frame = tk.Frame(frame)
-buttons_frame.grid(row=row, column=0, columnspan=2, pady=10)
+next_button = tk.Button(root, text="Далее", font=("Arial", 14, "bold"), bg="#3498db", fg="white", padx=20, pady=10,
+                        command=next_question, state="disabled")
+next_button.pack(pady=20)
 
-check_button = tk.Button(buttons_frame, text="Проверить ответы", command=check_answers, font=("Arial", 12))
-check_button.pack(side="left", padx=5)
-
-btn = tk.Button(buttons_frame, text="Возврат в меню", command=open_open_file, font=("Arial", 12))
-btn.pack(side="left", padx=5)
-
-result_label = tk.Label(frame, text="", font=("Arial", 12, "bold"))
-result_label.grid(row=row + 1, column=0, columnspan=2, pady=10)
-
-canvas.bind_all("<MouseWheel>", on_mouse_wheel)
-
+show_question()
 root.mainloop()
