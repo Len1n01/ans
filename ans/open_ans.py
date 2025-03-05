@@ -18,9 +18,18 @@ def create_question(root, question, answers, row_start):
 
     return selected_option  # Для обработки ответов
 
+def check_answers():
+    correct_answers = [1, 0, 2, 1, 0]  # Индексы правильных ответов
+    score = 0
+    for i, selected in enumerate(selected_answers):
+        if selected.get() == correct_answers[i]:
+            score += 2
+    result_label.config(text=f"Ваш результат: {score} баллов")
+
 root = tk.Tk()
 root.geometry("1024x600")  # Уменьшил высоту для проверки прокрутки
 root.title("Тест по алгоритмам")
+
 # Создаем Canvas и Scrollbar
 canvas = tk.Canvas(root)
 scrollbar = tk.Scrollbar(root, orient="vertical", command=canvas.yview)
@@ -34,7 +43,6 @@ scrollable_frame.bind(
 
 # Размещаем содержимое внутри Canvas
 canvas.create_window((0, 0), window=scrollable_frame, anchor="n", width=1024)
-
 canvas.configure(yscrollcommand=scrollbar.set)
 
 # Размещаем прокрутку и холст
@@ -68,7 +76,16 @@ row = 0  # Начальная строка
 for question, answers in questions:
     selected_answers.append(create_question(frame, question, answers, row))
     row += len(answers) + 2  # Увеличиваем номер строки для следующего вопроса
-    
+
+# Кнопка для проверки ответов
+check_button = tk.Button(frame, text="Проверить ответы", command=check_answers, font=("Arial", 12))
+check_button.grid(row=row, column=0, columnspan=2, pady=10)
+
+# Метка для отображения результата
+result_label = tk.Label(frame, text="", font=("Arial", 12, "bold"))
+result_label.grid(row=row + 1, column=0, columnspan=2, pady=10)
+
 canvas.bind_all("<MouseWheel>", on_mouse_wheel)
+
 
 root.mainloop()
