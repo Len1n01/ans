@@ -30,8 +30,6 @@ title_label.pack(pady=10)
 # создание фрейма для кнопок
 frame_buttons = tk.Frame(root)
 frame_buttons.pack(padx=10, pady=10)
-
-# кнопка начать опрос
 # кнопка начать опрос
 btn_open = tk.Button(frame_buttons, text="Откр вопрос", font=("Arial", 14, "bold"), padx=20, pady=5, bd=2, width=20)
 btn_open.pack(pady=20, padx=10)
