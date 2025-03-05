@@ -8,10 +8,23 @@ def show_about():
     tk.messagebox.showinfo("О программе ", "Опросник для университета")
 def show_help():
     tk.messagebox.showinfo("Помощь", "Для начала опроса нажмите кнопку 'Начать опрос'")
-
+    
+# функции для открытия файлов
 def open_open_file():
     root.destroy()
     subprocess.run(["python", "ans/open_ans.py"])
+
+def open_close_file():
+    root.destroy()
+    subprocess.run(["python", "ans/close_ans.py"])
+
+def open_pazl_file():
+    root.destroy()
+    subprocess.run(["python", "ans/pazl_ans.py"])
+
+def open_log_file():
+    root.destroy()
+    subprocess.run(["python", "ans/log_ans.py"])
 
 root = tk.Tk()
 root.geometry("1024x940")
@@ -40,13 +53,13 @@ frame_buttons.pack(padx=10, pady=10)
 btn_open = tk.Button(frame_buttons, text="Откр вопрос", command=open_open_file,font=("Arial", 14, "bold"), padx=20, pady=5, bd=2, width=20)
 btn_open.pack(pady=20, padx=10)
 
-btn_close = tk.Button(frame_buttons, text="Закры вопрос", font=("Arial", 14, "bold"), padx=20, pady=5, bd=2, width=20)
+btn_close = tk.Button(frame_buttons, text="Закры вопрос",command=open_close_file, font=("Arial", 14, "bold"), padx=20, pady=5, bd=2, width=20)
 btn_close.pack(pady=20, padx=10)
 
-btn_pazl = tk.Button(frame_buttons, text="Пазл", font=("Arial", 14, "bold"), padx=20, pady=5, bd=2, width=20)
+btn_pazl = tk.Button(frame_buttons, text="Пазл",command=open_pazl_file, font=("Arial", 14, "bold"), padx=20, pady=5, bd=2, width=20)
 btn_pazl.pack(pady=20, padx=10)
 
-btn_log = tk.Button(frame_buttons, text="Логика", font=("Arial", 14, "bold"), padx=20, pady=5, bd=2, width=20)
+btn_log = tk.Button(frame_buttons, text="Логика",command=open_log_file, font=("Arial", 14, "bold"), padx=20, pady=5, bd=2, width=20)
 btn_log.pack(pady=20, padx=10)
 
 root.mainloop()
