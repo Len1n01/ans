@@ -2,11 +2,16 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from tkinter import *
+import subprocess
 
 def show_about():
     tk.messagebox.showinfo("О программе ", "Опросник для университета")
 def show_help():
     tk.messagebox.showinfo("Помощь", "Для начала опроса нажмите кнопку 'Начать опрос'")
+
+def open_open_file():
+    root.destroy()
+    subprocess.run(["python", "ans/open_ans.py"])
 
 root = tk.Tk()
 root.geometry("1024x940")
@@ -32,7 +37,7 @@ frame_buttons = tk.Frame(root)
 frame_buttons.pack(padx=10, pady=10)
 
 # кнопка начать опрос
-btn_open = tk.Button(frame_buttons, text="Откр вопрос", font=("Arial", 14, "bold"), padx=20, pady=5, bd=2, width=20)
+btn_open = tk.Button(frame_buttons, text="Откр вопрос", command=open_open_file,font=("Arial", 14, "bold"), padx=20, pady=5, bd=2, width=20)
 btn_open.pack(pady=20, padx=10)
 
 btn_close = tk.Button(frame_buttons, text="Закры вопрос", font=("Arial", 14, "bold"), padx=20, pady=5, bd=2, width=20)
@@ -44,6 +49,4 @@ btn_pazl.pack(pady=20, padx=10)
 btn_log = tk.Button(frame_buttons, text="Логика", font=("Arial", 14, "bold"), padx=20, pady=5, bd=2, width=20)
 btn_log.pack(pady=20, padx=10)
 
-btn_log = tk.Button(frame_buttons, text="Логика", font=("Arial", 14, "bold"), padx=20, pady=5, bd=2, width=20)
-btn_log.pack(pady=20, padx=10)
 root.mainloop()
