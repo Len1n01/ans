@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import ttk, messagebox
 import subprocess
 
 # Основные цвета
@@ -31,7 +31,7 @@ selected = False
 # Создание окна
 root = tk.Tk()
 root.geometry("1024x600")
-root.title("Тест по алгоритмам")
+root.title("открытые тесты")
 root.configure(bg=BG_COLOR)
 
 # Функция отображения вопроса
@@ -88,7 +88,7 @@ for i in range(4):
     btn.pack(pady=5)
     answer_buttons.append(btn)
 
-next_button = tk.Button(root, text="Далее", font=("Arial", 14, "bold"), bg="#3498db", fg="white", padx=20, pady=10,
+next_button = tk.Button(root, text="Следующий вопрос", font=("Arial", 14, "bold"), bg="#3498db", fg="white", padx=20, pady=10,
                         command=next_question, state="disabled")
 next_button.pack(pady=20)
 
