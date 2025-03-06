@@ -1,15 +1,23 @@
 import tkinter as tk
-from tkinter import ttk
-from tkinter import messagebox
-from tkinter import *
+from tkinter import ttk, messagebox
 import subprocess
 
-def show_about():
-    tk.messagebox.showinfo("О программе ", "Опросник для университета")
-def show_help():
-    tk.messagebox.showinfo("Помощь", "Для начала опроса нажмите кнопку 'Начать опрос'")
+# Основные цвета
+BG_COLOR = "#F6D35B"
+TEXT_COLOR = "#2c3e50"
+BUTTON_COLOR = "#f1c40f"
+BUTTON_TEXT = "#000"
 
-# функции для открытия файлов
+# Функции для информации
+
+def show_about():
+    messagebox.showinfo("О программе", "Опросник для университета")
+
+def show_help():
+    messagebox.showinfo("Помощь", "Для начала опроса нажмите кнопку 'Начать опрос'")
+
+# Функции для открытия файлов
+
 def open_open_file():
     root.destroy()
     subprocess.run(["python", "ans/open_ans.py"])
@@ -26,40 +34,40 @@ def open_log_file():
     root.destroy()
     subprocess.run(["python", "ans/log_ans.py"])
 
+# Создание окна
 root = tk.Tk()
-root.geometry("800x600")
+root.geometry("1024x600")
 root.title("Опросник")
-root.resizable(False, False)
+root.configure(bg=BG_COLOR)
 
-# about , help
-frame_top = tk.Frame(root)
-frame_top.pack(anchor='nw', pady=10)
+# Верхняя панель с кнопками "О программе" и "Помощь"
+frame_top = tk.Frame(root, bg=BG_COLOR)
+frame_top.pack(anchor='nw', pady=10, padx=10)
 
-btn_about = tk.Button(frame_top, text="О программе", command=show_about)
-btn_about.grid(row=0, column=0, padx=5)
+tk.Button(frame_top, text="О программе", font=("Arial", 14, "bold"), bg=BUTTON_COLOR, fg=BUTTON_TEXT,
+          padx=10, pady=5, command=show_about).grid(row=0, column=0, padx=5)
 
-btn_help = tk.Button(frame_top, text="Помощь", command=show_help)
-btn_help.grid(row=0, column=1, padx=5)
+tk.Button(frame_top, text="Помощь", font=("Arial", 14, "bold"), bg=BUTTON_COLOR, fg=BUTTON_TEXT,
+          padx=10, pady=5, command=show_help).grid(row=0, column=1, padx=5)
 
-# загаловок
-title_label = ttk.Label(root, text="Опросник для университета", font=("Arial", 20, "bold"))
+# Заголовок
+title_label = tk.Label(root, text="Опросник для университета", font=("Arial", 24, "bold"), bg=BG_COLOR, fg=TEXT_COLOR)
 title_label.pack(pady=20)
 
-# создание фрейма для кнопок
-frame_buttons = tk.Frame(root)
+# Фрейм для кнопок
+frame_buttons = tk.Frame(root, bg=BG_COLOR)
 frame_buttons.pack(pady=20)
 
-# кнопка начать опрос
-btn_open = tk.Button(frame_buttons, text="Откр вопрос", command=open_open_file, font=("Arial", 14, "bold"), padx=20, pady=5, bd=2, width=20)
-btn_open.pack(pady=10)
+# Создание кнопок для разных типов вопросов
+buttons = [
+    ("Открытые вопросы", open_open_file),
+    ("Закрытые вопросы", open_close_file),
+    ("Пазл", open_pazl_file),
+    ("Логика", open_log_file)
+]
 
-btn_close = tk.Button(frame_buttons, text="Закры вопрос", command=open_close_file, font=("Arial", 14, "bold"), padx=20, pady=5, bd=2, width=20)
-btn_close.pack(pady=10)
-
-btn_pazl = tk.Button(frame_buttons, text="Пазл", command=open_pazl_file, font=("Arial", 14, "bold"), padx=20, pady=5, bd=2, width=20)
-btn_pazl.pack(pady=10)
-
-btn_log = tk.Button(frame_buttons, text="Логика", command=open_log_file, font=("Arial", 14, "bold"), padx=20, pady=5, bd=2, width=20)
-btn_log.pack(pady=10)
+for text, command in buttons:
+    tk.Button(frame_buttons, text=text, font=("Arial", 16, "bold"), width=30, height=2,
+              bg=BUTTON_COLOR, fg=BUTTON_TEXT, command=command).pack(pady=10)
 
 root.mainloop()
