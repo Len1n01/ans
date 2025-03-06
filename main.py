@@ -69,5 +69,5 @@ buttons = [
 for text, command in buttons:
     tk.Button(frame_buttons, text=text, font=("Arial", 16, "bold"), width=30, height=2,
               bg=BUTTON_COLOR, fg=BUTTON_TEXT, command=command).pack(pady=10)
-
+    
 root.mainloop()
