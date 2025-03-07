@@ -32,7 +32,7 @@ def open_pazl_file():
 
 def open_log_file():
     root.destroy()
-    subprocess.run(["python", "ans/log_ans.py"])
+    subprocess.run(["python", "ans/log.py"])
 
 # Создание окна
 root = tk.Tk()
