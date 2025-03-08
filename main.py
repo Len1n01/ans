@@ -4,7 +4,7 @@ import subprocess
 
 # Основные цвета
 BG_COLOR = "#F6D35B"
-TEXT_COLOR = "#2c3e50"
+TEXT_COLOR = "#2c3e5"
 BUTTON_COLOR = "#f1c40f"
 BUTTON_TEXT = "#000"
 
