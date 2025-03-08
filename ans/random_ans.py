@@ -9,6 +9,11 @@ TEXT_COLOR = "#2c3e50"
 BUTTON_COLOR = "#f1c40f"
 BUTTON_TEXT = "#000"
 
+# Функция для возврата в меню
+def open_main_menu():
+    root.destroy()
+    subprocess.run(["python", "main.py"])
+
 # Загружаем модель для анализа схожести
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
@@ -119,6 +124,9 @@ btn_prev.grid(row=0, column=1, padx=10)
 
 btn_next = tk.Button(btn_frame, text="Вперед", font=("Arial", 16, "bold"), width=10, height=2, bg=BUTTON_COLOR, fg=BUTTON_TEXT, command=lambda: switch_page(1))
 btn_next.grid(row=0, column=2, padx=10)
+
+btn_menu = tk.Button(btn_frame, text="Вернуться на главное меню", font=("Arial", 16, "bold"), width=25, height=2, bg=BUTTON_COLOR, fg=BUTTON_TEXT, command=open_main_menu)
+btn_menu.grid(row=0, column=1, padx=10)
 
 final_result_label = tk.Label(root, text="", font=("Arial", 12, "bold"), bg=BG_COLOR)
 final_result_label.pack(pady=10)
