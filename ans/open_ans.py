@@ -2,14 +2,6 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 import subprocess
 
-# Основные цвета
-BG_COLOR = "#F6D35B"
-TEXT_COLOR = "#2c3e50"
-CORRECT_COLOR = "#2ecc71"
-WRONG_COLOR = "#e74c3c"
-BUTTON_COLOR = "#f1c40f"
-BUTTON_TEXT = "#000"
-
 # Функция для возврата в меню
 def open_main_menu():
     root.destroy()
@@ -32,7 +24,6 @@ selected = False
 root = tk.Tk()
 root.geometry("1024x600")
 root.title("открытые тесты")
-root.configure(bg=BG_COLOR)
 
 # Функция отображения вопроса
 def show_question():
@@ -41,7 +32,7 @@ def show_question():
     question_label.config(text=questions[current_question][0])
     
     for i, btn in enumerate(answer_buttons):
-        btn.config(text=questions[current_question][1][i], bg=BUTTON_COLOR, state="normal")
+        btn.config(text=questions[current_question][1][i],state="normal")
     
     next_button.config(state="disabled")
 
@@ -58,9 +49,9 @@ def choose_answer(index):
     
     for i, btn in enumerate(answer_buttons):
         if i == correct_index:
-            btn.config(bg=CORRECT_COLOR)
+            btn.config()
         elif i == index:
-            btn.config(bg=WRONG_COLOR)
+            btn.config()
         btn.config(state="disabled")
     
     if index == correct_index:
@@ -78,17 +69,17 @@ def next_question():
         messagebox.showinfo("Результат", f"Ваш результат: {score} баллов")
         open_main_menu()
 
-question_label = tk.Label(root, text="", font=("Arial", 18, "bold"), bg=BG_COLOR, fg=TEXT_COLOR, wraplength=900)
+question_label = tk.Label(root, text="",wraplength=900)
 question_label.pack(pady=20)
 
 answer_buttons = []
 for i in range(4):
-    btn = tk.Button(root, text="", font=("Arial", 16), width=40, height=2, bg=BUTTON_COLOR, fg=BUTTON_TEXT,
+    btn = tk.Button(root, text="", width=40, height=2,
                     command=lambda i=i: choose_answer(i))
     btn.pack(pady=5)
     answer_buttons.append(btn)
 
-next_button = tk.Button(root, text="Следующий вопрос", font=("Arial", 14, "bold"), bg="#3498db", fg="white", padx=20, pady=10,
+next_button = tk.Button(root, text="Следующий вопрос",padx=20, pady=10,
                         command=next_question, state="disabled")
 next_button.pack(pady=20)
 

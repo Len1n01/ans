@@ -2,11 +2,6 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 import subprocess
 
-# Основные цвета
-BG_COLOR = "#F6D35B"
-TEXT_COLOR = "#2C3E50"
-BUTTON_COLOR = "#f1c40f"
-BUTTON_TEXT = "#000"
 
 # Функции для информации
 
@@ -38,24 +33,23 @@ def open_log_file():
 root = tk.Tk()
 root.geometry("1024x600")
 root.title("Опросник")
-root.configure(bg=BG_COLOR)
 
 # Верхняя панель с кнопками "О программе" и "Помощь"
-frame_top = tk.Frame(root, bg=BG_COLOR)
+frame_top = tk.Frame(root)
 frame_top.pack(anchor='nw', pady=10, padx=10)
 
-tk.Button(frame_top, text="О программе", font=("Arial", 14, "bold"), bg=BUTTON_COLOR, fg=BUTTON_TEXT,
+tk.Button(frame_top, text="О программе",
           padx=10, pady=5, command=show_about).grid(row=0, column=0, padx=5)
 
-tk.Button(frame_top, text="Помощь", font=("Arial", 14, "bold"), bg=BUTTON_COLOR, fg=BUTTON_TEXT,
+tk.Button(frame_top, text="Помощь",
           padx=10, pady=5, command=show_help).grid(row=0, column=1, padx=5)
 
 # Заголовок
-title_label = tk.Label(root, text="Опросник для университета", font=("Arial", 24, "bold"), bg=BG_COLOR, fg=TEXT_COLOR)
+title_label = tk.Label(root, text="Опросник для университета")
 title_label.pack(pady=20)
 
 # Фрейм для кнопок
-frame_buttons = tk.Frame(root, bg=BG_COLOR)
+frame_buttons = tk.Frame(root)
 frame_buttons.pack(pady=20)
 
 # Создание кнопок для разных типов вопросов
@@ -67,7 +61,6 @@ buttons = [
 ]
 
 for text, command in buttons:
-    tk.Button(frame_buttons, text=text, font=("Arial", 16, "bold"), width=30, height=2,
-              bg=BUTTON_COLOR, fg=BUTTON_TEXT, command=command).pack(pady=10)
+    tk.Button(frame_buttons, text=text, width=30, height=2,command=command).pack(pady=10)
     
 root.mainloop()

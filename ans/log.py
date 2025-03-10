@@ -3,11 +3,6 @@ from tkinter import messagebox
 import subprocess
 from sentence_transformers import SentenceTransformer, util
 
-# Основные цвета
-BG_COLOR = "#F6D35B"
-TEXT_COLOR = "#2c3e50"
-BUTTON_COLOR = "#f1c40f"
-BUTTON_TEXT = "#000"
 
 # Функция для возврата в меню
 def open_main_menu():
@@ -95,40 +90,39 @@ def update_questions():
 root = tk.Tk()
 root.geometry('1024x600')
 root.title("Логическая викторина")
-root.configure(bg=BG_COLOR)
 
-frame = tk.Frame(root, bg=BG_COLOR)
+frame = tk.Frame(root)
 frame.pack(expand=True, anchor="w", padx=20)
 
 for i in range(questions_per_page):
-    label = tk.Label(frame, text="", bg=BG_COLOR, fg=TEXT_COLOR, font=("Arial", 14, "bold"))
+    label = tk.Label(frame, text="")
     label.pack(anchor="w", pady=5)
     labels.append(label)
     
-    entry = tk.Entry(frame, width=50, font=("Arial", 12))
+    entry = tk.Entry(frame, width=50,)
     entry.pack(pady=2, anchor="w")
     entries.append(entry)
     
-    result = tk.Label(frame, text="", font=("Arial", 10), bg=BG_COLOR)
+    result = tk.Label(frame, text="")
     result.pack(pady=5)
     results.append(result)
 
-btn_frame = tk.Frame(root, bg=BG_COLOR)
+btn_frame = tk.Frame(root)
 btn_frame.pack(pady=10)
 
-btn_check = tk.Button(btn_frame, text="Проверить", font=('Arial', 16, 'bold'), width=20, height=2, bg=BUTTON_COLOR, fg=BUTTON_TEXT, command=check_answers)
+btn_check = tk.Button(btn_frame, text="Проверить", width=20, height=2, command=check_answers)
 btn_check.grid(row=0, column=0, padx=10)
 
-btn_prev = tk.Button(btn_frame, text="Назад", font=("Arial", 16, "bold"), width=10, height=2, bg=BUTTON_COLOR, fg=BUTTON_TEXT, command=lambda: switch_page(-1))
+btn_prev = tk.Button(btn_frame, text="Назад", width=10, height=2, command=lambda: switch_page(-1))
 btn_prev.grid(row=0, column=1, padx=10)
 
-btn_next = tk.Button(btn_frame, text="Вперед", font=("Arial", 16, "bold"), width=10, height=2, bg=BUTTON_COLOR, fg=BUTTON_TEXT, command=lambda: switch_page(1))
+btn_next = tk.Button(btn_frame, text="Вперед", width=10, height=2, command=lambda: switch_page(1))
 btn_next.grid(row=0, column=2, padx=10)
 
-btn_menu = tk.Button(btn_frame, text="Вернуться на главное меню", font=("Arial", 16, "bold"), width=25, height=2, bg=BUTTON_COLOR, fg=BUTTON_TEXT, command=open_main_menu)
+btn_menu = tk.Button(btn_frame, text="Вернуться на главное меню",  width=25, height=2, command=open_main_menu)
 btn_menu.grid(row=0, column=1, padx=10)
 
-final_result_label = tk.Label(root, text="", font=("Arial", 12, "bold"), bg=BG_COLOR)
+final_result_label = tk.Label(root, text="")
 final_result_label.pack(pady=10)
 
 update_questions()
