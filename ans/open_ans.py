@@ -1,11 +1,13 @@
-import tkinter as tk
-from tkinter import ttk, messagebox
+from pathlib import Path
+from tkinter import Tk, Canvas, Button, PhotoImage, messagebox
 import subprocess
 
-# Функция для возврата в меню
-def open_main_menu():
-    root.destroy()
-    subprocess.run(["python", "main.py"])
+# Пути к ресурсам
+OUTPUT_PATH = Path(__file__).parent
+ASSETS_PATH = OUTPUT_PATH / Path(r'open')
+
+def relative_to_assets(path: str) -> Path:
+    return ASSETS_PATH / Path(path)
 
 # Список вопросов и ответов
 questions = [
@@ -18,46 +20,50 @@ questions = [
 
 current_question = 0
 score = 0
+correct_answers = 0
+wrong_answers = 0
 selected = False
 
-# Создание окна
-root = tk.Tk()
-root.geometry("1024x600")
-root.title("открытые тесты")
+# Функция возврата в меню
+def open_main_menu():
+    window.destroy()
+    subprocess.run(["python", "main.py"])
 
 # Функция отображения вопроса
 def show_question():
     global selected
     selected = False
-    question_label.config(text=questions[current_question][0])
+    canvas.itemconfig(question_text, text=questions[current_question][0])
     
     for i, btn in enumerate(answer_buttons):
-        btn.config(text=questions[current_question][1][i],state="normal")
+        btn.config(text=questions[current_question][1][i], state="normal", bg="#1A237E", command=lambda i=i: choose_answer(i))
     
-    next_button.config(state="disabled")
-
+    button_next.config(state="disabled")  # Блокируем кнопку "Следующий вопрос"
+    
     if current_question == len(questions) - 1:
-        next_button.config(text="Вернуться в меню")
+        button_next.config(text="Завершить", command=show_result)
 
 # Функция выбора ответа
 def choose_answer(index):
-    global selected, score
+    global selected, score, correct_answers, wrong_answers
     if selected:
         return
     selected = True
     correct_index = questions[current_question][2]
     
-    for i, btn in enumerate(answer_buttons):
-        if i == correct_index:
-            btn.config()
-        elif i == index:
-            btn.config()
-        btn.config(state="disabled")
-    
     if index == correct_index:
         score += 2
+        correct_answers += 1
+        answer_buttons[index].config(bg="#00C853")  # Зеленый для правильного ответа
+    else:
+        wrong_answers += 1
+        answer_buttons[index].config(bg="#D50000")  # Красный для ошибки
+        answer_buttons[correct_index].config(bg="#00C853")  # Подсветка правильного ответа
     
-    next_button.config(state="normal")
+    for btn in answer_buttons:
+        btn.config(state="disabled")
+    
+    button_next.config(state="normal")  # Разблокируем кнопку "Следующий вопрос"
 
 # Функция перехода к следующему вопросу
 def next_question():
@@ -65,23 +71,88 @@ def next_question():
     if current_question < len(questions) - 1:
         current_question += 1
         show_question()
-    else:
-        messagebox.showinfo("Результат", f"Ваш результат: {score} баллов")
-        open_main_menu()
+    
+# Функция показа итогов теста
+def show_result():
+    messagebox.showinfo("Результат", f"Правильных ответов: {correct_answers}\nОшибок: {wrong_answers}\nОбщий балл: {score}")
+    open_main_menu()
 
-question_label = tk.Label(root, text="",wraplength=900)
-question_label.pack(pady=20)
+# Создание окна
+window = Tk()
+window.geometry("1024x600")
+window.configure(bg="#121212")
+window.resizable(False, False)
 
+canvas = Canvas(
+    window,
+    bg="#121212",
+    height=600,
+    width=1024,
+    bd=0,
+    highlightthickness=0,
+    relief="ridge"
+)
+canvas.place(x=0, y=0)
+
+question_text = canvas.create_text(
+    130.0, 79.0,
+    anchor="nw",
+    text="",
+    fill="#E0E0E0",
+    font=("AnonymousPro Regular", 24 * -1)
+)
+
+# Кнопки ответов
 answer_buttons = []
+button_positions = [153, 237, 321, 406]
+
 for i in range(4):
-    btn = tk.Button(root, text="", width=40, height=2,
-                    command=lambda i=i: choose_answer(i))
-    btn.pack(pady=5)
+    btn = Button(
+        text="",
+        font=("Arial", 14),
+        bg="#1A237E",
+        fg="#E0E0E0",
+        activebackground="#E0E0E0",
+        activeforeground="#E0E0E0",
+        borderwidth=0,
+        highlightthickness=0,
+        relief="flat",
+        width=40,
+        height=2
+    )
+    btn.place(x=329.0, y=button_positions[i], width=365.0, height=50.0)
     answer_buttons.append(btn)
 
-next_button = tk.Button(root, text="Следующий вопрос",padx=20, pady=10,
-                        command=next_question, state="disabled")
-next_button.pack(pady=20)
+# Кнопка "Следующий вопрос"
+button_next = Button(
+    text="Следующий",
+    font=("Arial", 14),
+    bg="#76FF03",
+    fg="#121212",
+    activebackground="#E0E0E0",
+    activeforeground="#121212",
+    borderwidth=0,
+    highlightthickness=0,
+    command=next_question,
+    relief="flat",
+    state="disabled"
+)
+button_next.place(x=546.0, y=499.0, width=148.0, height=41.0)
+
+# Кнопка "Меню"
+button_menu = Button(
+    text="Меню",
+    font=("Arial", 14),
+    bg="#76FF03",
+    fg="#121212",
+    activebackground="#121212",
+    activeforeground="#121212",
+    borderwidth=0,
+    highlightthickness=0,
+    command=open_main_menu,
+    relief="flat"
+)
+button_menu.place(x=329.0, y=499.0, width=148.0, height=41.0)
 
 show_question()
-root.mainloop()
+window.mainloop()
