@@ -54,11 +54,11 @@ def choose_answer(index):
     if index == correct_index:
         score += 2
         correct_answers += 1
-        answer_buttons[index].config(bg="#00C853")  # Зеленый для правильного ответа
+        answer_buttons[index].config(bg="#76FF03")  # Зеленый для правильного ответа
     else:
         wrong_answers += 1
-        answer_buttons[index].config(bg="#D50000")  # Красный для ошибки
-        answer_buttons[correct_index].config(bg="#00C853")  # Подсветка правильного ответа
+        answer_buttons[index].config(bg="#FF0004")  # Красный для ошибки
+        answer_buttons[correct_index].config(bg="#76FF03")  # Подсветка правильного ответа
     
     for btn in answer_buttons:
         btn.config(state="disabled")
