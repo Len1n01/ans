@@ -2,6 +2,7 @@ import tkinter as tk
 import subprocess
 from random import shuffle
 from tkinter import messagebox
+from pathlib import Path
 
 # Список вопросов и ответов по этапам
 stages = [
@@ -11,12 +12,18 @@ stages = [
     {"questions": ["Столица Испании?", "7 + 8 = ?", "Какой океан самый большой?", "Какой газ самый лёгкий?", "Кто написал 'Гамлет'?"], "answers": ["Мадрид", "15", "Тихий", "Водород", "Шекспир"]},
     {"questions": ["Столица Великобритании?", "Корень из 81?", "Сколько месяцев в году?", "Как называется самая длинная кость человека?", "Кто открыл Америку?"], "answers": ["Лондон", "9", "12", "Бедренная", "Колумб"]},
     {"questions": ["Столица Японии?", "12 * 3 = ?", "Какая самая маленькая планета?", "Самая глубокая точка Земли?", "Первый человек в космосе?"], "answers": ["Токио", "36", "Меркурий", "Марианская впадина", "Гагарин"]}
-] * 5  # Умножаем список, чтобы получить 30 вопросов
+] * 2  # Умножаем список, чтобы получить 30 вопросов
 
 stage_index = 0
 answered_questions = 0
 total_correct = 0
 total_wrong = 0
+
+OUTPUT_PATH = Path(__file__).parent
+ASSETS_PATH = OUTPUT_PATH / Path(r"pazl")
+
+def relative_to_assets(path: str) -> Path:
+    return ASSETS_PATH / Path(path)
 
 def load_stage():
     global selected_question, question_buttons, answer_buttons, answered_questions
@@ -37,24 +44,20 @@ def load_stage():
     answer_buttons.clear()
 
     for q in questions:
-        btn = tk.Button(left_frame, text=q, width=30, height=2,
-                        relief=tk.RAISED)
-        btn.pack(pady=10)
+        btn = tk.Button(left_frame, text=q, width=30, height=2, relief=tk.RAISED,bg="#1A237E", fg="#FFFFFF",font=("AnonymousPro Regular", 12, ""))
+        btn.pack(pady=15)
         btn.bind("<Button-1>", lambda e, text=q, b=btn: on_drag_question(text, b))
         question_buttons[q] = btn
 
     for a in answers:
-        btn = tk.Button(right_frame, text=a, width=30, height=2,
-                         relief=tk.RAISED)
-        btn.pack(pady=10)
+        btn = tk.Button(right_frame, text=a, width=30, height=2, relief=tk.RAISED,bg="#1A237E", fg="#FFFFFF",font=("AnonymousPro Regular", 12, ""))
+        btn.pack(pady=15)
         btn.bind("<Button-1>", lambda e, text=a, b=btn: on_drag_answer(text, b))
         answer_buttons[a] = btn
-
 
 def check_completion():
     if answered_questions == len(stages[stage_index]["questions"]):
         next_btn.config(state=tk.NORMAL)
-
 
 def next_stage():
     global stage_index
@@ -64,15 +67,12 @@ def next_stage():
     else:
         show_final_result()
 
-
 def show_final_result():
     messagebox.showinfo("Результат", f"Правильных ответов: {total_correct}\nНеправильных ответов: {total_wrong}")
-
 
 def on_drag_question(text, btn):
     global selected_question
     selected_question = (text, btn)
-
 
 def on_drag_answer(text, btn):
     global selected_question, answered_questions, total_correct, total_wrong
@@ -96,20 +96,46 @@ root = tk.Tk()
 root.title("Соедини вопросы и ответы")
 root.geometry("1024x600")
 
+canvas = tk.Canvas(
+    root,
+    bg = "#121212",
+    height = 600,
+    width = 1024,
+    bd = 0,
+    highlightthickness = 0,
+    relief = "ridge"
+)
+canvas.place(x = 0, y = 0)
 
-left_frame = tk.Frame(root,)
-left_frame.place(x=50, y=50)
-right_frame = tk.Frame(root,)
+left_frame = tk.Frame(root, bg="#121212")
+left_frame.place(x=100, y=50)
+right_frame = tk.Frame(root, bg="#121212")
 right_frame.place(x=600, y=50)
 
-bottom_frame = tk.Frame(root,)
-bottom_frame.pack(side=tk.BOTTOM, pady=20)
+bottom_frame = tk.Frame(root, bg="#121212")
+bottom_frame.pack(side=tk.BOTTOM, pady=100)
 
-next_btn = tk.Button(bottom_frame, text="Получить результат", command=show_final_result, width=20, height=2,
-                      state=tk.DISABLED)
+next_btn_image = tk.PhotoImage(file=relative_to_assets("button_2.png"))
+next_btn = tk.Button(
+    bottom_frame,
+    image=next_btn_image,
+    borderwidth=0,
+    highlightthickness=0,
+    command=show_final_result,
+    relief="flat",
+    state=tk.DISABLED
+)
 next_btn.pack(side=tk.LEFT, padx=10)
 
-main_menu_btn = tk.Button(bottom_frame, text="Главное меню", command=open_main_menu, width=15, height=2,)
+main_menu_btn_image = tk.PhotoImage(file=relative_to_assets("button_1.png"))
+main_menu_btn = tk.Button(
+    bottom_frame,
+    image=main_menu_btn_image,
+    borderwidth=0,
+    highlightthickness=0,
+    command=open_main_menu,
+    relief="flat"
+)
 main_menu_btn.pack(side=tk.LEFT, padx=10)
 
 question_buttons = {}
