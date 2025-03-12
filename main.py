@@ -12,10 +12,10 @@ def relative_to_assets(path: str) -> Path:
 
 # Функции для информации
 def show_about():
-    messagebox.showinfo("О программе", "Опросник для университета")
+    messagebox.showinfo("Создатели", "Создатель: Пётр GitHub@Len1n01 Tg:noname2030\nСоздатель: Игорь GitHub@Zirael69 Tg:ARz228")
 
 def show_help():
-    messagebox.showinfo("Помощь", "Для начала опроса нажмите кнопку 'Начать опрос'")
+    messagebox.showinfo("Помощь", "Для начала работы выберите один из вариантов\nи следуйте инструкциям")
 
 # Функции для открытия файлов
 def open_open_file():

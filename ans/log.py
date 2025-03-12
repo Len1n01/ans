@@ -3,7 +3,6 @@ from tkinter import messagebox
 import subprocess
 from sentence_transformers import SentenceTransformer, util
 
-
 # Функция для возврата в меню
 def open_main_menu():
     root.destroy()
@@ -88,41 +87,61 @@ def update_questions():
 
 # Создание окна
 root = tk.Tk()
-root.geometry('1024x600')
-root.title("Логическая викторина")
+root.title("Тестовое приложение")
+root.geometry("1024x600")  # Устанавливаем разрешение окна
+root.configure(bg="black")
+root.resizable(False, False)
 
-frame = tk.Frame(root)
-frame.pack(expand=True, anchor="w", padx=20)
+# Центрируем окно на экране
+root.update_idletasks()
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+x = (screen_width - 1024) // 2
+y = (screen_height - 600) // 2
+root.geometry(f"1024x600+{x}+{y}")
 
+# Стили
+LABEL_FONT = ("Arial", 14, "bold")
+ENTRY_BG = "#BBBFE0"  # Светло-фиолетовый фон для полей ввода
+BUTTON_BG = "#A4FF71"  # Светло-зеленый фон кнопок
+TEXT_COLOR = "white"
+
+# Контейнер для выравнивания по центру
+frame = tk.Frame(root, bg="black")
+frame.pack(expand=True)
+
+# Создаем метки и поля ввода
+entries = []
 for i in range(questions_per_page):
-    label = tk.Label(frame, text="")
-    label.pack(anchor="w", pady=5)
+    label = tk.Label(frame, text="", font=LABEL_FONT, fg=TEXT_COLOR, bg="black")
+    label.pack(pady=(10, 2))  # Отступ сверху
     labels.append(label)
     
-    entry = tk.Entry(frame, width=50,)
-    entry.pack(pady=2, anchor="w")
+    entry = tk.Entry(frame, bg=ENTRY_BG, fg="black", font=("Arial", 14), width=60)
+    entry.pack(pady=(0, 5))  # Отступ снизу
     entries.append(entry)
     
-    result = tk.Label(frame, text="")
-    result.pack(pady=5)
+    result = tk.Label(frame, text="", font=LABEL_FONT, fg=TEXT_COLOR, bg="black")
+    result.pack(pady=(0, 5))
     results.append(result)
 
-btn_frame = tk.Frame(root)
-btn_frame.pack(pady=10)
+# Создаем кнопки
+button_frame = tk.Frame(frame, bg="black")
+button_frame.pack(pady=20)
 
-btn_check = tk.Button(btn_frame, text="Проверить", width=20, height=2, command=check_answers)
-btn_check.grid(row=0, column=0, padx=10)
+btn_check = tk.Button(button_frame, text="Проверить", bg=BUTTON_BG, font=("Arial", 12), width=15, command=check_answers)
+btn_check.pack(side=tk.LEFT, padx=10)
 
-btn_prev = tk.Button(btn_frame, text="Назад", width=10, height=2, command=lambda: switch_page(-1))
-btn_prev.grid(row=0, column=1, padx=10)
+btn_prev = tk.Button(button_frame, text="Назад", bg=BUTTON_BG, font=("Arial", 12), width=15, command=lambda: switch_page(-1))
+btn_prev.pack(side=tk.LEFT, padx=10)
 
-btn_next = tk.Button(btn_frame, text="Вперед", width=10, height=2, command=lambda: switch_page(1))
-btn_next.grid(row=0, column=2, padx=10)
+btn_next = tk.Button(button_frame, text="Вперёд", bg=BUTTON_BG, font=("Arial", 12), width=15, command=lambda: switch_page(1))
+btn_next.pack(side=tk.LEFT, padx=10)
 
-btn_menu = tk.Button(btn_frame, text="Вернуться на главное меню",  width=25, height=2, command=open_main_menu)
-btn_menu.grid(row=0, column=1, padx=10)
+btn_menu = tk.Button(button_frame, text="Главное меню", bg=BUTTON_BG, font=("Arial", 12), width=15, command=open_main_menu)
+btn_menu.pack(side=tk.LEFT, padx=10)
 
-final_result_label = tk.Label(root, text="")
+final_result_label = tk.Label(root, text="", font=LABEL_FONT, fg=TEXT_COLOR, bg="black")
 final_result_label.pack(pady=10)
 
 update_questions()

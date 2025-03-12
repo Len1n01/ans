@@ -95,6 +95,7 @@ def open_main_menu():
 root = tk.Tk()
 root.title("Соедини вопросы и ответы")
 root.geometry("1024x600")
+root.resizable(False, False)
 
 canvas = tk.Canvas(
     root,
