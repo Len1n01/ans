@@ -84,4 +84,3 @@ canvas.create_text(
 
 window.resizable(False, False)
 window.mainloop()
-#
