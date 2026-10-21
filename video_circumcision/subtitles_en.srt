@@ -1,0 +1,763 @@
+1
+00:00:00,550 --> 00:00:02,472
+Picture an ordinary hospital.
+
+2
+00:00:02,472 --> 00:00:05,861
+A baby boy is born, and his parents are Jewish.
+
+3
+00:00:05,861 --> 00:00:13,477
+The next day, a non-Jewish doctor offers to circumcise him right there: quick, sterile, under medical supervision.
+
+4
+00:00:13,477 --> 00:00:14,701
+The parents agree.
+
+5
+00:00:15,056 --> 00:00:21,063
+Years later, the family learns that according to Jewish law, this circumcision might not count.
+
+6
+00:00:21,063 --> 00:00:22,145
+How can that be?
+
+7
+00:00:22,145 --> 00:00:27,300
+The foreskin is gone, the operation was done, physically everything is in place.
+
+8
+00:00:27,300 --> 00:00:30,264
+Why would anyone say the commandment was not fulfilled?
+
+9
+00:00:30,642 --> 00:00:34,123
+And if it was not fulfilled, what now: cut again?
+
+10
+00:00:34,123 --> 00:00:36,030
+This is not a made-up scenario.
+
+11
+00:00:36,030 --> 00:00:46,043
+In the twentieth century, especially in the Soviet Union, thousands of Jewish boys were circumcised by doctors in hospitals, and many were never circumcised at all.
+
+12
+00:00:46,420 --> 00:00:51,099
+When these people began returning to tradition, the question became very real.
+
+13
+00:00:51,099 --> 00:00:58,638
+Today we are going to work through it properly: from the Book of Genesis to the Talmud, from Maimonides to the Shulchan Aruch.
+
+14
+00:00:59,006 --> 00:01:05,541
+And to make the logic of the law truly visible, we will write it as JavaScript code and run it right on screen.
+
+15
+00:01:05,541 --> 00:01:10,670
+So, the question of the day: does circumcision count if a non-Jew performs it?
+
+16
+00:01:12,140 --> 00:01:13,546
+Let's start at the beginning.
+
+17
+00:01:13,546 --> 00:01:19,654
+In Hebrew, circumcision is called brit milah, literally, the covenant of circumcision.
+
+18
+00:01:19,654 --> 00:01:23,727
+It is not just a medical procedure, and it is not a hygiene custom.
+
+19
+00:01:24,102 --> 00:01:38,730
+In chapter seventeen of Genesis, God makes a covenant with Abraham and says: This is My covenant, which you shall keep, between Me and you and your descendants after you: every male among you shall be circumcised.
+
+20
+00:01:39,088 --> 00:01:45,855
+And then: at eight days old, every male among you shall be circumcised, throughout your generations.
+
+21
+00:01:45,855 --> 00:01:51,744
+Abraham circumcised himself at the age of ninety nine, and his son Isaac on the eighth day.
+
+22
+00:01:52,106 --> 00:02:02,739
+Since then, for nearly four thousand years, Jews all over the world have done this on the eighth day of a child's life, even when that day falls on Shabbat or on Yom Kippur.
+
+23
+00:02:02,739 --> 00:02:04,749
+Notice one word: covenant.
+
+24
+00:02:05,100 --> 00:02:10,076
+The Torah describes circumcision not as a result, but as the sign of a bond.
+
+25
+00:02:10,076 --> 00:02:12,911
+And that is exactly where our whole question comes from.
+
+26
+00:02:12,911 --> 00:02:17,228
+If only the result matters, then it does not matter who holds the knife.
+
+27
+00:02:17,614 --> 00:02:23,530
+But if it is an act inside a covenant, then perhaps it matters a great deal who performs it, and why.
+
+28
+00:02:24,988 --> 00:02:29,848
+Before asking who may perform a circumcision, let's understand what it consists of.
+
+29
+00:02:29,848 --> 00:02:34,874
+In halacha, that is, Jewish law, brit milah has several stages.
+
+30
+00:02:34,874 --> 00:02:38,546
+The first is milah, the actual removal of the foreskin.
+
+31
+00:02:38,918 --> 00:02:45,440
+The second is periah, folding back the thin inner membrane so that the glans is fully exposed.
+
+32
+00:02:45,440 --> 00:02:50,479
+Without periah, says the Mishnah, it is as if the circumcision never happened.
+
+33
+00:02:50,479 --> 00:02:54,628
+The third stage is metzitzah, drawing the blood from the wound.
+
+34
+00:02:55,008 --> 00:03:02,110
+This is more of a medical and traditional element, and how it should be done today is debated, but that is a separate topic.
+
+35
+00:03:02,110 --> 00:03:04,095
+And finally, the blessings.
+
+36
+00:03:04,450 --> 00:03:14,761
+The father thanks God for commanding him to bring his son into the covenant of Abraham, and the mohel, the person who performs the circumcision, says his own blessing.
+
+37
+00:03:14,761 --> 00:03:17,248
+Let's write this as a JavaScript structure.
+
+38
+00:03:17,612 --> 00:03:23,206
+You can see that each step has a field saying whether it is required for the circumcision to be valid.
+
+39
+00:03:23,206 --> 00:03:28,013
+If even one required step is missing, the check function returns false.
+
+40
+00:03:28,013 --> 00:03:30,732
+Remember this structure, we will need it again.
+
+41
+00:03:32,210 --> 00:03:36,232
+Now for the main question: who is allowed to perform a circumcision?
+
+42
+00:03:36,232 --> 00:03:42,624
+In tractate Avodah Zarah, page twenty seven, the Talmud begins with a very broad rule.
+
+43
+00:03:42,624 --> 00:03:44,828
+Everyone is fit to circumcise.
+
+44
+00:03:44,828 --> 00:03:47,753
+And then comes a surprising example: a woman.
+
+45
+00:03:48,132 --> 00:03:50,801
+Where do we see that a woman may circumcise?
+
+46
+00:03:50,801 --> 00:03:55,131
+People usually point to the story of Tzipporah, the wife of Moses.
+
+47
+00:03:55,131 --> 00:04:02,798
+In chapter four of Exodus, on the way to Egypt, Moses is in mortal danger because their son has not been circumcised.
+
+48
+00:04:03,166 --> 00:04:07,601
+And Tzipporah takes a sharp stone and circumcises her son herself.
+
+49
+00:04:07,601 --> 00:04:09,121
+And the danger passes.
+
+50
+00:04:09,121 --> 00:04:15,655
+Maimonides and the Shulchan Aruch do indeed include a woman in the list of those fit to circumcise.
+
+51
+00:04:16,016 --> 00:04:22,680
+So neither being male, nor any special rank, nor rabbinic status is required for the commandment itself.
+
+52
+00:04:22,680 --> 00:04:27,319
+Of course, in practice circumcision is done by an experienced mohel.
+
+53
+00:04:27,319 --> 00:04:32,242
+That is a matter of the child's health, and today it is always a trained specialist.
+
+54
+00:04:32,610 --> 00:04:38,578
+But from the point of view of pure law, the circle of people who can perform the commandment is very wide.
+
+55
+00:04:38,578 --> 00:04:40,150
+So where is its boundary?
+
+56
+00:04:40,150 --> 00:04:41,645
+Does it include a non-Jew?
+
+57
+00:04:41,645 --> 00:04:46,993
+Here the Talmud opens a debate, and this is the most interesting part of our analysis.
+
+58
+00:04:48,456 --> 00:04:51,628
+So, Avodah Zarah, page twenty seven.
+
+59
+00:04:51,628 --> 00:04:57,401
+The Talmud asks: how do we know that a circumcision performed by a non-Jew is invalid?
+
+60
+00:04:57,401 --> 00:05:01,331
+And it gives two different sources, from two different sages.
+
+61
+00:05:01,714 --> 00:05:08,726
+The first, Daru bar Pappa in the name of Rav, says: it is written, and you shall keep My covenant.
+
+62
+00:05:08,726 --> 00:05:15,208
+The meaning is this: a circumcision can be performed by someone who is himself inside the covenant.
+
+63
+00:05:15,572 --> 00:05:19,388
+Someone outside the covenant cannot bring another person into it.
+
+64
+00:05:19,388 --> 00:05:25,522
+The second, Rabbi Yochanan, quotes a different verse: he shall surely be circumcised.
+
+65
+00:05:25,878 --> 00:05:34,385
+In Hebrew, that is himol yimol, and Rabbi Yochanan reads it as a play on words: the one who is circumcised shall circumcise.
+
+66
+00:05:34,385 --> 00:05:40,570
+In other words, the criterion is not belonging to the people, but the fact of being circumcised.
+
+67
+00:05:40,570 --> 00:05:42,117
+What difference does it make?
+
+68
+00:05:42,496 --> 00:05:45,951
+In most cases, both criteria give the same answer.
+
+69
+00:05:45,951 --> 00:05:50,307
+But the Talmud itself asks: what is the practical difference between them?
+
+70
+00:05:50,307 --> 00:05:53,052
+And it answers: two interesting cases.
+
+71
+00:05:53,052 --> 00:05:58,980
+The first case is a circumcised Arab, that is, a non-Jew who is himself circumcised.
+
+72
+00:05:59,354 --> 00:06:09,317
+The second is a Jew who is not circumcised because his older brothers died from circumcision, so the law forbids him to undergo it, since it is a danger to his life.
+
+73
+00:06:09,317 --> 00:06:11,211
+Let's see what this looks like in code.
+
+74
+00:06:12,680 --> 00:06:14,344
+We write two functions.
+
+75
+00:06:14,344 --> 00:06:20,182
+The first follows Rav: a person may circumcise if he is himself inside the covenant.
+
+76
+00:06:20,182 --> 00:06:25,684
+A Jew is in the covenant, even if for a legitimate reason he is not circumcised.
+
+77
+00:06:26,058 --> 00:06:31,704
+The second function follows Rabbi Yochanan: a person may circumcise if he is circumcised.
+
+78
+00:06:31,704 --> 00:06:36,150
+Now we create an array of people and run each of them through both functions.
+
+79
+00:06:36,150 --> 00:06:39,887
+A circumcised Jewish man: both functions say yes.
+
+80
+00:06:39,887 --> 00:06:42,954
+An uncircumcised non-Jew: both say no.
+
+81
+00:06:43,324 --> 00:06:44,704
+No disagreement there.
+
+82
+00:06:44,704 --> 00:06:46,354
+Now the interesting rows.
+
+83
+00:06:46,354 --> 00:06:51,650
+A circumcised Arab: according to Rav, no, he is not in the covenant.
+
+84
+00:06:51,650 --> 00:06:55,903
+According to Rabbi Yochanan, formally yes, he is circumcised.
+
+85
+00:06:56,270 --> 00:07:05,627
+But in practice the law does not rule this way, and the codes state explicitly: a non-Jew, even a circumcised one, does not circumcise.
+
+86
+00:07:05,627 --> 00:07:12,857
+Next, a Jew whose brothers died from circumcision: according to Rav, yes, he is in the covenant.
+
+87
+00:07:13,224 --> 00:07:17,285
+According to Rabbi Yochanan, no, he is not circumcised.
+
+88
+00:07:17,285 --> 00:07:18,586
+And what about a woman?
+
+89
+00:07:18,586 --> 00:07:21,228
+The Talmud asks this question itself.
+
+90
+00:07:21,228 --> 00:07:29,437
+According to Rabbi Yochanan, a woman is considered as if she were circumcised, since she has nothing to circumcise, so she may.
+
+91
+00:07:29,818 --> 00:07:32,887
+But according to Rav, it comes out that she may not.
+
+92
+00:07:32,887 --> 00:07:36,108
+And then the Talmud asks: but what about Tzipporah?
+
+93
+00:07:36,108 --> 00:07:41,701
+And it answers: perhaps she had someone else do it, or she began and Moses finished.
+
+94
+00:07:42,068 --> 00:07:48,229
+You can see how two short verses become two different functions, and give different answers on the edge cases.
+
+95
+00:07:48,229 --> 00:07:52,984
+That is Talmudic thinking: find the input on which two logics diverge.
+
+96
+00:07:54,458 --> 00:07:58,106
+There is a second layer to the debate, and it is about intention.
+
+97
+00:07:58,106 --> 00:08:03,815
+In the same chapter, the Talmud quotes a baraita, a teaching from the era of the Mishnah.
+
+98
+00:08:04,188 --> 00:08:15,066
+Rabbi Yehudah says: a Jew may circumcise a Samaritan, but a Samaritan may not circumcise a Jew, because he circumcises in the name of Mount Gerizim.
+
+99
+00:08:15,066 --> 00:08:21,251
+The Samaritans, or Kutim, held Mount Gerizim to be their holy place, not Jerusalem.
+
+100
+00:08:21,622 --> 00:08:27,203
+And Rabbi Yehudah is concerned that their circumcision would be dedicated to a different worship.
+
+101
+00:08:27,203 --> 00:08:34,278
+Rabbi Yosei objects: where do we find in the Torah at all that circumcision requires a special intention?
+
+102
+00:08:34,278 --> 00:08:37,255
+Let him circumcise, whatever he is thinking about.
+
+103
+00:08:37,616 --> 00:08:41,445
+So here is another key parameter: kavanah, intention.
+
+104
+00:08:41,445 --> 00:08:46,587
+Must circumcision be done for the sake of the commandment, or is the act itself enough?
+
+105
+00:08:46,587 --> 00:08:53,726
+For our question this matters, because a non-Jewish doctor in a hospital is obviously not thinking about any covenant.
+
+106
+00:08:54,090 --> 00:08:56,334
+He is performing a medical operation.
+
+107
+00:08:56,334 --> 00:09:00,458
+If intention is required, his work apparently does not count.
+
+108
+00:09:00,458 --> 00:09:02,751
+If not, then perhaps it does.
+
+109
+00:09:02,751 --> 00:09:07,184
+Let's add an intent parameter to our code and see how it changes the answer.
+
+110
+00:09:08,664 --> 00:09:15,212
+Now we move from the Talmud to the codes of law, that is, to how this debate was decided in practice.
+
+111
+00:09:15,212 --> 00:09:21,900
+We start with Maimonides, the Rambam, the great twelfth century scholar, Rabbi Moshe ben Maimon.
+
+112
+00:09:22,258 --> 00:09:37,607
+In his code, the Mishneh Torah, in the laws of circumcision, chapter two, he writes: everyone is fit to circumcise, even an uncircumcised man, a slave, a woman, and a minor, where there is no adult man.
+
+113
+00:09:37,607 --> 00:09:40,301
+But a non-Jew should not circumcise at all.
+
+114
+00:09:40,652 --> 00:09:44,983
+And if he did circumcise, there is no need to circumcise a second time.
+
+115
+00:09:44,983 --> 00:09:50,499
+Here two very important concepts of Jewish law appear: lechatchila and bedieved.
+
+116
+00:09:50,499 --> 00:09:54,777
+Lechatchila means in advance, ideally, how one should act.
+
+117
+00:09:55,134 --> 00:09:58,847
+Bedieved means after the fact, once it has already been done.
+
+118
+00:09:58,847 --> 00:10:03,203
+According to the Rambam, lechatchila one may not call a non-Jew.
+
+119
+00:10:03,203 --> 00:10:10,316
+But bedieved, if the circumcision was already done by a non-Jew, it counts, and nothing needs to be redone.
+
+120
+00:10:10,696 --> 00:10:20,839
+In code it looks like this: the function returns not just yes or no, but two separate fields: may we do this in advance, and what to do if it is already done.
+
+121
+00:10:21,194 --> 00:10:28,824
+And by the way, this is very typical of halacha: the same act can be forbidden in advance, yet valid after the fact.
+
+122
+00:10:30,296 --> 00:10:38,365
+The next stage: the Shulchan Aruch, the code of law compiled by Rabbi Yosef Karo in the sixteenth century in Safed.
+
+123
+00:10:38,365 --> 00:10:41,857
+To this day it is the main practical code of Jewish law.
+
+124
+00:10:42,210 --> 00:10:48,913
+In the section Yoreh Deah, chapter two hundred sixty four, he repeats the Rambam almost word for word.
+
+125
+00:10:48,913 --> 00:10:56,606
+Everyone is fit to circumcise, but a non-Jew, even if he himself is circumcised, should not circumcise at all.
+
+126
+00:10:56,956 --> 00:11:00,450
+And if he did, there is no need to circumcise again.
+
+127
+00:11:00,450 --> 00:11:03,143
+But the Shulchan Aruch has a famous addition.
+
+128
+00:11:03,518 --> 00:11:17,695
+Rabbi Moshe Isserles, known as the Rema, the great rabbi of Krakow, wrote glosses on the text called the Mapah, the tablecloth, because it spreads Ashkenazi customs over the set table, the Shulchan Aruch.
+
+129
+00:11:18,072 --> 00:11:24,117
+And here the Rema writes: some say that one must again draw the blood of the covenant from the child.
+
+130
+00:11:24,117 --> 00:11:31,824
+This opinion goes back to early authorities, the Tur cites it, and this is exactly the practice in Ashkenazi communities.
+
+131
+00:11:31,824 --> 00:11:33,550
+So the picture looks like this.
+
+132
+00:11:33,922 --> 00:11:39,091
+According to the Shulchan Aruch, circumcision by a non-Jew counts after the fact.
+
+133
+00:11:39,091 --> 00:11:44,168
+According to the Rema, it does not fully count: an additional procedure is needed.
+
+134
+00:11:44,168 --> 00:11:47,635
+Let's look at what that procedure is called and what it involves.
+
+135
+00:11:49,096 --> 00:11:54,755
+This procedure is called hatafat dam brit, literally, a drop of the blood of the covenant.
+
+136
+00:11:54,755 --> 00:11:59,110
+It is important to understand: nobody cuts the child a second time.
+
+137
+00:11:59,110 --> 00:12:04,858
+The foreskin is already gone, so repeating the circumcision is physically impossible.
+
+138
+00:12:05,210 --> 00:12:12,273
+Instead, the mohel makes a tiny prick at the site of the circumcision, so that a single drop of blood appears.
+
+139
+00:12:12,273 --> 00:12:13,227
+That is all.
+
+140
+00:12:13,227 --> 00:12:14,567
+It takes seconds.
+
+141
+00:12:14,940 --> 00:12:25,238
+The point of this act is that the commandment itself is, so to speak, performed again, this time properly, by Jewish hands and for the sake of the covenant.
+
+142
+00:12:25,238 --> 00:12:28,434
+The same procedure is used in other situations too.
+
+143
+00:12:28,798 --> 00:12:33,568
+For example, when a man who is already circumcised converts to Judaism.
+
+144
+00:12:33,568 --> 00:12:42,614
+In tractate Shabbat, page one hundred thirty five, the schools of Shammai and Hillel debate a convert who comes already circumcised.
+
+145
+00:12:42,968 --> 00:12:49,864
+And in the end, the law recorded in the Shulchan Aruch requires such a convert to undergo hatafat dam brit.
+
+146
+00:12:49,864 --> 00:12:56,372
+The logic is the same: the body is already circumcised, but the covenant has not yet been made.
+
+147
+00:12:56,372 --> 00:12:59,452
+So a drop of blood is needed to seal that covenant.
+
+148
+00:12:59,802 --> 00:13:05,435
+And now it becomes clear why the Rema requires the same after a circumcision by a non-Jew.
+
+149
+00:13:05,435 --> 00:13:12,394
+The physical result is there, but the act inside the covenant was never performed, and the drop of blood completes it.
+
+150
+00:13:13,872 --> 00:13:26,799
+Let's put it all together and write one big function, we will call it brit, which takes a description of the situation and returns a ruling according to three authorities: the Rambam, the Shulchan Aruch, and the Rema.
+
+151
+00:13:26,799 --> 00:13:28,410
+Let's run the first case.
+
+152
+00:13:28,762 --> 00:13:32,630
+A Jewish mohel, on the eighth day, with the blessings.
+
+153
+00:13:32,630 --> 00:13:35,632
+Completely clear: valid according to everyone.
+
+154
+00:13:35,632 --> 00:13:40,774
+The second case: a non-Jewish doctor in a hospital, a medical circumcision.
+
+155
+00:13:40,774 --> 00:13:46,431
+The Rambam and the Shulchan Aruch: not allowed lechatchila, but bedieved it counts.
+
+156
+00:13:46,796 --> 00:13:49,865
+The Rema: hatafat dam brit is required.
+
+157
+00:13:49,865 --> 00:13:56,321
+The third case: a Jewish doctor, not observant at all, performed a circumcision in a clinic.
+
+158
+00:13:56,321 --> 00:14:01,385
+He is Jewish, so he is in the covenant, and by law the circumcision counts.
+
+159
+00:14:01,758 --> 00:14:08,216
+Many mohels will still check whether periah was done completely, because medical technique sometimes differs.
+
+160
+00:14:08,216 --> 00:14:15,394
+The fourth case: a mother circumcised her son herself, like Tzipporah, because no mohel was available.
+
+161
+00:14:15,760 --> 00:14:21,174
+By the basic law this is valid, although many authorities prefer a man lechatchila.
+
+162
+00:14:21,174 --> 00:14:27,798
+The fifth case: an adult from the former Soviet Union, who was circumcised in a hospital as a child.
+
+163
+00:14:28,154 --> 00:14:34,045
+According to Ashkenazi practice, he undergoes hatafat dam brit, sometimes as an adult.
+
+164
+00:14:34,045 --> 00:14:38,349
+And the sixth case: a circumcised Muslim converts to Judaism.
+
+165
+00:14:38,349 --> 00:14:41,815
+Also hatafat dam brit, but as part of the conversion.
+
+166
+00:14:42,204 --> 00:14:48,649
+Notice that in every case where the body is already circumcised, the answer is never: cut again.
+
+167
+00:14:48,649 --> 00:14:50,994
+At most, a single drop of blood.
+
+168
+00:14:52,458 --> 00:14:54,869
+A few practical notes before we finish.
+
+169
+00:14:54,869 --> 00:15:00,436
+First: all of this concerns a situation where the circumcision has already been done.
+
+170
+00:15:00,436 --> 00:15:09,083
+Lechatchila, all authorities agree: you should call a Jew, and ideally an experienced mohel who knows both the law and the medicine.
+
+171
+00:15:09,460 --> 00:15:14,835
+Today many mohels are themselves doctors, and many doctors have trained as mohels.
+
+172
+00:15:14,835 --> 00:15:18,018
+Second: a non-Jew can absolutely assist.
+
+173
+00:15:18,018 --> 00:15:23,907
+For example, an anesthesiologist, a nurse, or a pediatrician who examines the baby.
+
+174
+00:15:24,278 --> 00:15:29,537
+Halacha is concerned with who performs the act itself, not with who is standing nearby.
+
+175
+00:15:29,537 --> 00:15:35,220
+Third: if you or your child were circumcised in a hospital, there is no need to panic.
+
+176
+00:15:35,592 --> 00:15:41,444
+This is a very common situation, and there is a simple, long established solution for it.
+
+177
+00:15:41,444 --> 00:15:44,885
+Speak to the rabbi of your community or to a mohel.
+
+178
+00:15:45,250 --> 00:15:53,280
+He will check whether periah was done, and tell you whether hatafat dam brit is needed according to your custom, Ashkenazi or Sephardi.
+
+179
+00:15:53,280 --> 00:15:57,301
+And fourth: this video itself is not a halachic ruling.
+
+180
+00:15:57,668 --> 00:16:05,066
+We have gone through the sources, but a specific question is always decided by a rabbi who knows all the circumstances.
+
+181
+00:16:06,530 --> 00:16:07,678
+So, let's sum up.
+
+182
+00:16:07,678 --> 00:16:11,609
+The question: does circumcision count if a non-Jew performs it?
+
+183
+00:16:11,609 --> 00:16:21,184
+The Talmud debates where we learn that a non-Jew does not circumcise: from the words about the covenant, or from the words about the one who is himself circumcised.
+
+184
+00:16:21,540 --> 00:16:30,240
+The Rambam and the Shulchan Aruch say: you may not do this in advance, but if it has already been done, there is no need to repeat it.
+
+185
+00:16:30,598 --> 00:16:43,332
+And the Rema and the Ashkenazi tradition add: hatafat dam brit must be performed, drawing a drop of the blood of the covenant, so that the circumcision is not only an operation, but also a covenant.
+
+186
+00:16:43,332 --> 00:16:46,270
+And perhaps that is the main lesson of this whole topic.
+
+187
+00:16:46,640 --> 00:16:54,129
+In Jewish law, what matters is not only the result, but also who performs an act, how, and for what purpose.
+
+188
+00:16:54,129 --> 00:17:01,422
+Two people can make the very same movement with a knife, and one is surgery, while the other is the covenant of Abraham.
+
+189
+00:17:01,794 --> 00:17:03,484
+Thank you for watching to the end.
+
+190
+00:17:03,484 --> 00:17:09,656
+If you found this interesting, tell us in the comments which other questions of Jewish law we should work through with code.
+
+191
+00:17:09,656 --> 00:17:10,816
+See you next time.
